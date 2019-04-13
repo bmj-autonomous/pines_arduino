@@ -1,4 +1,3 @@
-#include <Wire.h>
 #include <Arduino.h>
 /*
 Spin up and down slow, 
@@ -24,11 +23,6 @@ int TRK_STEP_PWM = 1;
 
 char str[50];
 
-const int ledPin = LED_BUILTIN; //12; // onboard LED
-
-void receiveEvent(int howMany);
-void move_square();
-
 void setup()
 {
   pinMode(SIGNAL_PIN, OUTPUT);
@@ -39,12 +33,6 @@ void setup()
   pinMode(in2_right, OUTPUT);
   pinMode(in3_left, OUTPUT);
   pinMode(in4_left, OUTPUT);
-
-  static_assert(LOW == 0, "Expecting LOW to be 0");
-  Wire.begin(0x8);                // join i2c bus with address #8
-  Wire.onReceive(receiveEvent); // register event
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW); // turn it off
 }
 
 void blink_three()
@@ -219,7 +207,6 @@ void turn_constant(int speed, int turn_delay, int direction)
 
 void loop()
 {
-  delay(100);
   /*
   forward();
   delay(1000);
@@ -233,63 +220,7 @@ void loop()
   analogWrite(enA_right, 0);
   // */
 
-  /*  
-  for(int i= 0; i<4; i++)
-  {
-    int speed = 255; 
-    int time_milli = 2500;
-    forward_constant(speed, time_milli);
-    delay(500);
-
-    int direction = 1; // 1 => right , 0 => left
-    int turn_delay = 400;
-    turn_constant(speed, turn_delay , direction);
-    delay(1000);
-  }
-  exit(0);
-  // */
-
-}
-
-void receiveEvent(int howMany) {
-  while (Wire.available()) { // loop through all but the last
-    char c = Wire.read(); // receive byte as a character
-    
-    switch (c)
-    {
-      // LED Control
-      case 'X':
-        sprintf(str, "%c : LED ON\n", char(c));
-        Serial.print(str);
-        digitalWrite(ledPin, HIGH);
-        break;
-
-      case 'x':
-        sprintf(str, "%c : LED OFF\n", char(c));
-        Serial.print(str);
-        digitalWrite(ledPin, LOW);
-        break;
-      
-      case 's':
-        sprintf(str, "%c : MOVE SQUARE\n", char(c));
-        Serial.print(str);
-        //move robot in a square shape
-        move_square();   
-        //forward();
-        delay(5000);    
-        break;
-
-      default:
-        sprintf(str, "%c : Unrecognized byte!\n", char(c));
-        Serial.print(str);      
-        break;
-
-    }
-  }
-}
-
-void move_square()
-{
+  
   for(int i= 0; i<4; i++)
   {
     int speed = 255; 
@@ -304,4 +235,7 @@ void move_square()
     delay(1000);
     // */
   }
+  exit(0);
+  // */
+
 }
