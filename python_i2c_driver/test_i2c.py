@@ -28,7 +28,7 @@ while True:
 
 #    print(hex(this_val))
     print(hex(ord(this_val)))
-    bus.write_byte(this_addr, ord(val))
+    #bus.write_byte(this_addr, ord(val))
     bus.write_byte(this_addr, ord(this_val))
 
 

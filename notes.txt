@@ -7,5 +7,9 @@
  sudo chmod 777 /dev/ttyUSB0
  platformio run -t upload
  
+ raspberry:
  
+ IP: 172.16.165.63 / raspberrypi
  
+ ssh pi@172.16.165.63
+ passwd: raspberry

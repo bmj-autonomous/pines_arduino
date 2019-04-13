@@ -11,9 +11,12 @@
 
 // 04-Feb-2018 mcarter adapted
 #include <Wire.h>
+#include <Arduino.h>
 
-const int ledPin = 13; // onboard LED
+const int ledPin = 12; // onboard LED
 // static_assert(LOW == 0, "Expecting LOW to be 0");
+void receiveEvent(int howMany);
+
 
 void setup() {
   static_assert(LOW == 0, "Expecting LOW to be 0");
@@ -26,7 +29,6 @@ void setup() {
 void loop() {
   delay(100);
 }
-
 // function that executes whenever data is received from master
 // this function is registered as an event, see setup()
 void receiveEvent(int howMany) {
@@ -35,3 +37,4 @@ void receiveEvent(int howMany) {
     digitalWrite(ledPin, c);
   }
 }
+
