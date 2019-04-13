@@ -5,6 +5,25 @@ Spin up and down slow,
 Control forward, backward
 */
 
+
+int BAUD = 9600;
+// void setup(){
+//   Serial.begin(BAUD);
+// }
+// void loop(){
+//   Serial.println("Hello World");
+//   Serial.print("Counter = ");
+//   Serial.println(counter);
+//   delay(1000);
+//   counter++;
+// }
+
+
+
+char COMMAND;
+
+
+
 // connect motor controller pins to Arduino digital pins
 // motor one
 int enA_right = 11;
@@ -28,6 +47,7 @@ const int ledPin = 12; // onboard LED
 
 void receiveEvent(int howMany);
 void move_square();
+void stop_motor(); 
 
 void setup()
 {
@@ -45,6 +65,8 @@ void setup()
   Wire.onReceive(receiveEvent); // register event
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, LOW); // turn it off
+
+  Serial.begin(BAUD);
 }
 
 void blink_three()
@@ -173,6 +195,16 @@ void forward_constant(int speed, int time_milli)
   Serial.print(str);
 }
 
+void stop_motor() {
+  digitalWrite(in1_right, LOW);
+  digitalWrite(in2_right, LOW);
+  analogWrite(enA_right, 0);
+
+  digitalWrite(in3_left, LOW);
+  digitalWrite(in4_left, LOW);
+  analogWrite(enB_left, 0);
+}
+
 // direction = 1 => right
 // direction = 0 => left
 void turn_constant(int speed, int turn_delay, int direction)
@@ -219,7 +251,13 @@ void turn_constant(int speed, int turn_delay, int direction)
 
 void loop()
 {
-  delay(6000);
+  delay(100);
+  if (COMMAND == 's') {
+    stop_motor();
+  } else if (COMMAND == 'S') {
+    move_square();
+  }
+  // Serial.println("Hello World");
   /*
   forward();
   delay(1000);
@@ -274,7 +312,18 @@ void receiveEvent(int howMany) {
         sprintf(str, "%c : MOVE SQUARE\n", char(c));
         Serial.print(str);
         //move robot in a square shape
-        move_square();   
+        // move_square();   
+        COMMAND = 's';
+        //forward();
+        //delay(5000);    
+        break;
+
+      case 'S':
+        sprintf(str, "%c : MOVE SQUARE\n", char(c));
+        Serial.print(str);
+        //move robot in a square shape
+        // move_square();   
+        COMMAND = 'S';
         //forward();
         //delay(5000);    
         break;
@@ -292,6 +341,9 @@ void move_square()
 {
   for(int i= 0; i<4; i++)
   {
+    sprintf(str, "Iteratation %d\n", i);
+    Serial.print(str);
+    
     int speed = 255; 
     int time_milli = 2500;
     forward_constant(speed, time_milli);
