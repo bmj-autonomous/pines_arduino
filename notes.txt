@@ -13,3 +13,5 @@
  
  ssh pi@172.16.165.63
  passwd: raspberry
+ 
+ sudo apt-get install i2c-tools
