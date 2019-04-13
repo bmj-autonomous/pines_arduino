@@ -24,7 +24,7 @@ int TRK_STEP_PWM = 1;
 
 char str[50];
 
-const int ledPin = LED_BUILTIN; //12; // onboard LED
+const int ledPin = 12; // onboard LED
 
 void receiveEvent(int howMany);
 void move_square();
@@ -219,7 +219,7 @@ void turn_constant(int speed, int turn_delay, int direction)
 
 void loop()
 {
-  delay(100);
+  delay(6000);
   /*
   forward();
   delay(1000);
@@ -276,7 +276,7 @@ void receiveEvent(int howMany) {
         //move robot in a square shape
         move_square();   
         //forward();
-        delay(5000);    
+        //delay(5000);    
         break;
 
       default:
