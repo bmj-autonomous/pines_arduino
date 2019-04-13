@@ -1,0 +1,11 @@
+ 
+ For Visual Studio:
+ in repository code folder parallel to src where platform.io file is: 
+ code . 
+ 
+ For uploading the code:
+ sudo chmod 777 /dev/ttyUSB0
+ platformio run -t upload
+ 
+ 
+ 
