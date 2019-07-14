@@ -2,7 +2,7 @@ import lcddriver
 import time
 
 I2C_BUS_DEVICE_NUMBER = 1
-I2C_ADDRESS = 26
+I2C_ADDRESS = 0x26
 
 lcd = lcddriver.lcd(I2C_ADDRESS,I2C_BUS_DEVICE_NUMBER)
 
