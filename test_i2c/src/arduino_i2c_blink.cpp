@@ -10,7 +10,7 @@
 
 const int kLedBuiltin = LED_BUILTIN; // onboard LED
 const int kLedPin = 12; // onboard LED
-const int k_I2C_Address = 0x8; // Specify the I2C address here
+const int k_I2C_Address = 0x9; // Specify the I2C address here
 void receiveEvent(int howMany);
 
 void setup() {
