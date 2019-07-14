@@ -1,7 +1,8 @@
 #include <Arduino.h>
 
-// int MY_PIN = 12;
-int MY_PIN = LED_BUILTIN;
+// int MY_PIN = LED_BUILTIN; // Built-in LED
+int MY_PIN = 12; // Specified external LED
+
 int MY_DELAY = 100; // Delay in ms
 // the setup function runs once when you press reset or power the board
 void setup() {

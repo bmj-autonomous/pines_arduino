@@ -13,17 +13,19 @@
 #include <Wire.h>
 #include <Arduino.h>
 
-const int ledPin = 12; // onboard LED
+const int kLedPin = 12; // onboard LED
+const int k_I2C_Address = 0x8 // Specify the I2C address here
+const h
 // static_assert(LOW == 0, "Expecting LOW to be 0");
 void receiveEvent(int howMany);
 
 
 void setup() {
   static_assert(LOW == 0, "Expecting LOW to be 0");
-  Wire.begin(0x8);                // join i2c bus with address #8
+  Wire.begin(k_I2C_Address); // join i2c 
   Wire.onReceive(receiveEvent); // register event
-  pinMode(ledPin, OUTPUT);
-  digitalWrite(ledPin, LOW); // turn it off
+  pinMode(kLedPin, OUTPUT);
+  digitalWrite(kLedPin, LOW); // turn it off
 }
 
 void loop() {
@@ -34,7 +36,7 @@ void loop() {
 void receiveEvent(int howMany) {
   while (Wire.available()) { // loop through all but the last
     char c = Wire.read(); // receive byte as a character
-    digitalWrite(ledPin, c);
+    digitalWrite(kLedPin, c);
   }
 }
 
