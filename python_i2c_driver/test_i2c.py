@@ -25,11 +25,13 @@ while True:
     #     continue
 
     this_val = input("Input character:")
+    this_val = int(this_val)
 
-#    print(hex(this_val))
-    print(ord(this_val))
+    #print("hex:", hex(this_val))
+    #print("ord:", ord(this_val))
     #bus.write_byte(this_addr, ord(val))
-    bus.write_byte(this_addr, ord(this_val))
+    bus.write_byte(this_addr, this_val)
+    #bus.write_byte(this_addr, ord(this_val))
 
 
 #    val = input("Character byte:")
